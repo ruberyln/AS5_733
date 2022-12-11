@@ -34,7 +34,7 @@ var axis = 0;
 var thetaLoc;
 
 var flag = false;
-
+// constant  position of the  vertices defined 
 const vertices = [
   vec4(-0.5, -0.5, 0.5, 1.0),
   vec4(-0.5, 0.5, 0.5, 1.0),
@@ -45,7 +45,7 @@ const vertices = [
   vec4(0.5, 0.5, -0.5, 1.0),
   vec4(0.5, -0.5, -0.5, 1.0)
 ]
-
+//defininig the constants for parts of the figure
 const torsoId = 0
 const headId = 1
 const head1Id = 1
@@ -92,9 +92,13 @@ window.onload = function init () {
   if (!gl) {
     alert('WebGL 2.0 is not available')
   }
+   //this represents the viewport on the window.
   gl.viewport(0, 0, canvas.width, canvas.height)
+
+    // clear the color to give you deseired color RGBA
   gl.clearColor(0.9, 0.9, 0.9, 1.0)
   //  Load shaders and initialize attribute buffers
+
   program = initShaders(gl, 'vertex-shader', 'fragment-shader')
   gl.useProgram(program)
 
@@ -122,7 +126,7 @@ window.onload = function init () {
   gl.enableVertexAttribArray(normalLoc);
 
 
-
+// create vertex buffer
   const vBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer)
   gl.bufferData(gl.ARRAY_BUFFER, flatten(positionsArray), gl.STATIC_DRAW)
@@ -141,6 +145,8 @@ window.onload = function init () {
     var diffuseProduct = mult(lightDiffuse, materialDiffuse);
     var specularProduct = mult(lightSpecular, materialSpecular);
 
+// call the html button elements from the html file using
+//  document.getELementByID to animate figure
     document.getElementById("ButtonX").onclick = function(){axis = xAxis;};
     document.getElementById("ButtonY").onclick = function(){axis = yAxis;};
     document.getElementById("ButtonZ").onclick = function(){axis = zAxis;};
@@ -212,7 +218,8 @@ window.onload = function init () {
   }
   render()
 }
-
+//initnode and createNode function allows creaton of the figure and 
+// the movement of each part of the figure using the slider 
 function initNodes (Id) {
   let m = mat4()
   switch (Id) {
@@ -382,7 +389,7 @@ function rightLowerLeg () {
     gl.drawArrays(gl.TRIANGLE_FAN, 4 * i, 4)
   }
 }
-
+// 
 function cube () {
   quad(1, 0, 3, 2)
   quad(2, 3, 7, 6)
@@ -398,7 +405,7 @@ function quad (a, b, c, d) {
     var normal = cross(t1, t2);
     normal = vec3(normal);
 
-
+// this function pushes the  position into the figure element 
     positionsArray.push(vertices[a]);
     normalsArray.push(normal);
     positionsArray.push(vertices[b]);
@@ -413,11 +420,12 @@ function quad (a, b, c, d) {
     normalsArray.push(normal);
 }
 
+//without this function your code will not display on the browser.
 function render () {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     if(flag) theta[axis] += 2.0;
-
+// enables the animation of the figure
     modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, rotate(theta[xAxis], vec3(1, 0, 0)));
     modelViewMatrix = mult(modelViewMatrix, rotate(theta[yAxis], vec3(0, 1, 0)));
