@@ -412,10 +412,10 @@ function quad (a, b, c, d) {
     normalsArray.push(normal);
     positionsArray.push(vertices[c]);
     normalsArray.push(normal);
-    positionsArray.push(vertices[a]);
-    normalsArray.push(normal);
-    positionsArray.push(vertices[c]);
-    normalsArray.push(normal);
+    // positionsArray.push(vertices[a]);
+    // normalsArray.push(normal);
+    // positionsArray.push(vertices[c]);
+    // normalsArray.push(normal);
     positionsArray.push(vertices[d]);
     normalsArray.push(normal);
 }
